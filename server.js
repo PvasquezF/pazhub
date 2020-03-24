@@ -51,6 +51,16 @@ app.get('/viewPeliculas',(req, res)=> {
         });
 });
 
+app.get('/viewEpisodios', function(req, res){
+    var serieId = req.body.serieId || 1;
+
+    mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
+        if (err) {throw err;}
+        else{
+            res.json(result);	
+        }
+        });
+});
 
 
 app.listen(PORT,HOST);
