@@ -1,0 +1,22 @@
+{
+  "name": "pazhub",
+  "version": "1.0.0",
+  "description": "Aplicacion de streaming utilizando nodeJS. Proyecto de análisis y diseño de sistemas 2, USAC.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PvasquezF/pazhub.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PvasquezF/pazhub/issues"
+  },
+  "homepage": "https://github.com/PvasquezF/pazhub#readme",
+  "dependencies": {
+    "mysql": "^2.18.1"
+  }
+}
