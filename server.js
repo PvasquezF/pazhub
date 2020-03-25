@@ -1,5 +1,7 @@
 'use strict';
 const express = require('express');
+const fs = require('fs')
+const path = require('path')
 // App
 const app = express();
 var body_parser = require('body-parser')
@@ -60,6 +62,23 @@ app.get('/viewEpisodios', function(req, res){
             res.json(result);	
         }
         });
+});
+
+
+app.get('/viewVideo', function(req,res){
+    var url = req.body.url || 'https://mega.nz/embed#!A7h2SCjY!k5CKlP_n2Cw4Xw9rGaI7lnZC99NvvNRIIg0v7r4X6tk';
+    var title = req.body.title || 'Aqui va un titulo';
+    var response =  '<!doctype html> \n'+
+                    '<html lang="en"> \n'+ 
+                    '<head> \n' +
+                    '<meta charset="utf-8"> \n'+
+                    '<title>'+title+'</title> \n'+
+                    '</head> \n' +
+                    '<body> \n'+
+                    '<iframe width="640" height="360" frameborder="0" src="'+url+'" allowfullscreen ></iframe> \n'+
+                    '</body>\n'+
+                    '</html>';
+    res.send(response);
 });
 
 
