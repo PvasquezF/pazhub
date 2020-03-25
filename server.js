@@ -51,7 +51,6 @@ app.get('/viewPeliculas',(req, res)=> {
 
 app.get('/viewEpisodios',body_parser,  (req, res)=>{
     var serieId = req.body.serieId || 1;
-    console.log(req.body);
     mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
         if (err) {throw err;}
         else{
