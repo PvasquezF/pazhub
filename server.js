@@ -1,10 +1,8 @@
 'use strict';
 const express = require('express');
-const fs = require('fs')
-const path = require('path')
 // App
 const app = express();
-var body_parser = require('body-parser')
+var body_parser = require('body-parser').json();
 var ip = process.env.IP || 'localhost';
 var h = process.env.HOST ||'localhost';
 
@@ -12,8 +10,6 @@ var h = process.env.HOST ||'localhost';
 const PORT = 3000;
 const HOST = h;
 
-
-app.use(body_parser.urlencoded({extended:true}));
 
 const mysql = require('mysql');
 // connection configurations
@@ -53,9 +49,9 @@ app.get('/viewPeliculas',(req, res)=> {
         });
 });
 
-app.get('/viewEpisodios', function(req, res){
+app.get('/viewEpisodios',body_parser,  (req, res)=>{
     var serieId = req.body.serieId || 1;
-
+    console.log(req.body);
     mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
         if (err) {throw err;}
         else{
@@ -65,7 +61,7 @@ app.get('/viewEpisodios', function(req, res){
 });
 
 
-app.get('/viewVideo', function(req,res){
+app.get('/viewVideo',body_parser,  (req, res)=>{
     var url = req.body.url || 'https://mega.nz/embed#!A7h2SCjY!k5CKlP_n2Cw4Xw9rGaI7lnZC99NvvNRIIg0v7r4X6tk';
     var title = req.body.title || 'Aqui va un titulo';
     var response =  '<!doctype html> \n'+
