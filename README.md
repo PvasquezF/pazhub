@@ -9,7 +9,5 @@ npm i express
 npm i body-parser
 npm i request-promise
 npm i request
-npm i fs
-npm i path
 
 '''
