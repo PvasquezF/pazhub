@@ -15,6 +15,7 @@
 			<a href="index.html"">Home</a>
 			<a href="pelicula.html" class="active">Peliculas</a>
 			<a href="serie.html">Series</a>
+			<a href="addmovie.html">Registrar Pelicula</a>
 		</div>
 		
 		</div>
@@ -32,7 +33,7 @@
 			var listavideo='';
 			$.each(data,function(key,value){
 				listavideo += '<a href="video.html?type=p&id='+value.peliculaId+'">';
-				listavideo += '<img src="'+value.peliculaImagen+'" width="200" height="250">';
+				listavideo += '<iframe src="'+value.peliculaImagen+'" width="200" height="250"></iframe>';
 				listavideo += '<figcaption>'+value.peliculaName+'</figcaption>';
 				listavideo += '</a>';
 			});

@@ -3,24 +3,25 @@ const express = require('express');
 
 // App
 const app = express();
-const mysql = require('mysql');
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = process.env.IP || 'localhost';
-var h = process.env.HOST ||'localhost';
-
-app.use(body_parser);
+var ip = process.env.IP || '34.68.232.91';
+var h = process.env.HOST || '0.0.0.0';
 
 // Constants
 const PORT = 3000;
+const HOST = h;
 
-app.use(cors());
+app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }));
 
+
+
+const mysql = require('mysql');
 // connection configurations
 const mc = mysql.createConnection({
     host: ip,
     user: 'root',
-    password: '1234',
+    password: 'root',
     database: 'DB_PazHUB'
 });
 mc.connect(function(error) {
@@ -29,10 +30,6 @@ mc.connect(function(error) {
     } else {
         console.log('Conexion correcta.');
     }
-});
-
-app.listen(PORT, () => {
-    console.log(`Servidor corriendo`);
 });
 
 app.get('/', function(req, res) {
@@ -71,12 +68,12 @@ app.get('/viewPeliculas', (req, res) => {
     });
 });
 
-app.get('/viewEpisodios', (req, res) => {
+app.get('/viewEpisodios', body_parser, (req, res) => {
     var vacio = {};
     if (Object.entries(vacio).toString() === Object.entries(req.query).toString()) {
         //console.log("Es Body");
         var serieId = req.body.serieId || 1;
-        mc.query("select * from Catalogo_Episodio where serieId = " + serieId + ";", function(err, result, fields) {
+        mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = " + serieId + ";", function(err, result, fields) {
             if (err) { throw err; } else {
                 res.json(result);
             }
@@ -84,7 +81,7 @@ app.get('/viewEpisodios', (req, res) => {
     } else {
         //console.log("Es Query");
         var serieId = req.query.serieId;
-        mc.query("select * from Catalogo_Episodio where serieId = " + serieId + ";", function(err, result, fields) {
+        mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = " + serieId + ";", function(err, result, fields) {
             if (err) { throw err; } else {
                 res.json(result);
             }
@@ -94,7 +91,7 @@ app.get('/viewEpisodios', (req, res) => {
 });
 
 
-app.get('/viewVideo', (req, res) => {
+app.get('/viewVideo', body_parser, (req, res) => {
     var url = req.body.url || 'https://mega.nz/embed#!A7h2SCjY!k5CKlP_n2Cw4Xw9rGaI7lnZC99NvvNRIIg0v7r4X6tk';
     var title = req.body.title || 'Aqui va un titulo';
     var response = '<!doctype html> \n' +
@@ -109,3 +106,25 @@ app.get('/viewVideo', (req, res) => {
         '</html>';
     res.send(response);
 });
+
+app.post('/registrarPelicula', body_parser, function(req, res) {
+    var name = req.body.name;
+    var descripcion = req.body.descripcion;
+    var urlimagen = req.body.urlimagen;
+    var urlpelicula = req.body.urlpelicula;
+
+    var query = "insert into Pelicula(peliculaName, peliculaDescripcion,peliculaImagen,peliculaURL) "
+    "values('" + name + "','" + descripcion + "','" + urlimagen + "','" + urlpelicula + "');"
+
+
+    mc.query(query, function(err, result, fields) {
+        if (err) { res.send("FAIL!!!!") } else {
+            res.send("SUCCESS")
+        }
+    });
+
+});
+
+
+app.listen(PORT, HOST);
+console.log(`Running on http://${HOST}:${PORT}`);
