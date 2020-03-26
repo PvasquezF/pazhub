@@ -22,7 +22,7 @@ const mc = mysql.createConnection({
     host: ip,
     user: 'root',
     password: '1234',
-    database: 'db_pazhub'
+    database: 'DB_PazHUB'
 });
 mc.connect(function(error){
     if(error){
@@ -37,7 +37,7 @@ app.get('/', function(req,res){
 });
 
 app.get('/viewSeries',(req, res)=> {
-    mc.query("Select * from serie;", function (err, result, fields) {
+    mc.query("Select * from Serie;", function (err, result, fields) {
         if (err) {throw err;}
         else{
             res.json(result);	
@@ -46,7 +46,7 @@ app.get('/viewSeries',(req, res)=> {
 });
 
 app.get('/pelicula/:peliculaId', (req, res) => {
-    mc.query("Select * from pelicula where peliculaId = "+ req.params.peliculaId +";", function (err, result, fields) {
+    mc.query("Select * from Pelicula where peliculaId = "+ req.params.peliculaId +";", function (err, result, fields) {
         if (err) {throw err;}
         else{
             res.json(result);	
@@ -55,7 +55,7 @@ app.get('/pelicula/:peliculaId', (req, res) => {
 });
 
 app.get('/episodio/:episodioId', (req, res) => {
-    mc.query("Select * from catalogo_episodio where episodioId = "+ req.params.episodioId +";", function (err, result, fields) {
+    mc.query("Select * from Catalogo_Episodio where episodioId = "+ req.params.episodioId +";", function (err, result, fields) {
         if (err) {throw err;}
         else{
             res.json(result);	
@@ -64,7 +64,7 @@ app.get('/episodio/:episodioId', (req, res) => {
 });
 
 app.get('/viewPeliculas',(req, res)=> {
-    mc.query("Select * from pelicula;", function (err, result, fields) {
+    mc.query("Select * from Pelicula;", function (err, result, fields) {
         if (err) {throw err;}
         else{
             res.json(result);	
@@ -77,7 +77,7 @@ app.get('/viewEpisodios',body_parser,  (req, res)=>{
 	if(Object.entries(vacio).toString()=== Object.entries(req.query).toString()){
 		//console.log("Es Body");
 		var serieId = req.body.serieId || 1;
-		mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
+		mc.query("select * from Catalogo_Episodio where serieId = "+ serieId +";", function (err, result, fields) {
 			if (err) {throw err;}
 			else{
 				res.json(result);	
@@ -87,7 +87,7 @@ app.get('/viewEpisodios',body_parser,  (req, res)=>{
 	else{
 		//console.log("Es Query");
 		var serieId = req.query.serieId;
-		mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
+		mc.query("select * from Catalogo_Episodio where serieId = "+ serieId +";", function (err, result, fields) {
 			if (err) {throw err;}
 			else{
 				res.json(result);	
