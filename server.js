@@ -5,8 +5,8 @@ const express = require('express');
 const app = express();
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = process.env.IP || '34.68.232.91';
-var h = process.env.HOST ||'0.0.0.0';
+var ip = process.env.IP || 'localhost';
+var h = process.env.HOST ||'localhost';
 
 // Constants
 const PORT = 3000;
@@ -21,7 +21,7 @@ const mysql = require('mysql');
 const mc = mysql.createConnection({
     host: ip,
     user: 'root',
-    password: 'root',
+    password: '1234',
     database: 'DB_PazHUB'
 });
 mc.connect(function(error){

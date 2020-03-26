@@ -28,7 +28,7 @@
 
 <script>
 	$(document).ready(function(){
-		$.getJSON('http://192.168.1.10:3000/viewPeliculas', function(data) {
+		$.getJSON('http://34.66.170.250:8080/viewPeliculas', function(data) {
 			var listavideo='';
 			$.each(data,function(key,value){
 				listavideo += '<a href="video.html?type=p&id='+value.peliculaId+'">';
