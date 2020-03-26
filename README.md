@@ -10,5 +10,5 @@ npm i body-parser
 npm i request-promise
 npm i request
 npm i mysql
-
+npm i cors
 ```
