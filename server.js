@@ -77,7 +77,7 @@ app.get('/viewEpisodios',body_parser,  (req, res)=>{
 	if(Object.entries(vacio).toString()=== Object.entries(req.query).toString()){
 		//console.log("Es Body");
 		var serieId = req.body.serieId || 1;
-		mc.query("select * from Catalogo_Episodio where serieId = "+ serieId +";", function (err, result, fields) {
+		mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = "+ serieId +";", function (err, result, fields) {
 			if (err) {throw err;}
 			else{
 				res.json(result);	
@@ -87,7 +87,7 @@ app.get('/viewEpisodios',body_parser,  (req, res)=>{
 	else{
 		//console.log("Es Query");
 		var serieId = req.query.serieId;
-		mc.query("select * from Catalogo_Episodio where serieId = "+ serieId +";", function (err, result, fields) {
+		mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = "+ serieId +";", function (err, result, fields) {
 			if (err) {throw err;}
 			else{
 				res.json(result);	

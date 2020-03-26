@@ -44,7 +44,7 @@
 						var listavideo='';
 						$.each(data,function(key,value){
 							listavideo += '<a href="video.html?type=e&id='+value.episodioId+'">';
-							listavideo += '<img src="'+value.episodioImagen+'" width="200" height="250">';
+							listavideo += '<iframe src="'+value.episodioImagen+'" width="200" height="250"></iframe>';
 							listavideo += '<figcaption>'+value.episodioName+'</figcaption>';
 							listavideo += '</a>';
 						});
