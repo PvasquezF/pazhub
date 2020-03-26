@@ -1,21 +1,68 @@
-<!doctype html>
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-
-  <title>The HTML5 Herald</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
-
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
-
-</head>
-
-<body>
-<iframe width="640" height="360" frameborder="0" src="https://mega.nz/embed#!A7h2SCjY!k5CKlP_n2Cw4Xw9rGaI7lnZC99NvvNRIIg0v7r4X6tk" allowfullscreen ></iframe>
-<iframe width="640" height="360" frameborder="0" src="https://drive.google.com/file/d/16jKax5LxozpZfF-oiYuyDH2ZVrAx0WZM/preview" allowfullscreen ></iframe>
-
-
-</body>
+<!DOCTYPE html>
+<html>
+	<head>
+	  <link rel="stylesheet" href="style.css">
+	  <title>PAZHUB</title>
+	   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<h2 class="title">
+				<b class="PAZ">Paz</b>
+				<b class="HUB">hub</b>
+			</h2>
+			<hr/>
+			<a href="index.html"">Home</a>
+			<a href="pelicula.html">Peliculas</a>
+			<a href="serie.html" class="active">Series</a>
+		</div>
+		
+		</div>
+			<h2>Video Caliente</h2>
+		</div>
+		<div class="videos" id="video">
+		</div>
+		 
+	</body>
 </html>
+
+<script>
+	$(document).ready(function(){
+		let searchParams = new URLSearchParams(window.location.search);
+		
+		if(searchParams.has('type') && searchParams.has('id')){
+			let type = searchParams.get('type');
+			let id = searchParams.get('id');
+			if(type.localeCompare("e") == 0){
+				console.log("episodio");
+				$(document).ready(function(){
+					$.getJSON('http://localhost:3000/episodio/'+id, function(data) {
+						var listavideo='';
+						listavideo += '<h2>'+data[0].episodioName+'</h2>'
+						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].episodioURL+'" allowfullscreen ></iframe>';
+						listavideo += '<h2>'+data[0].episodioDuracion+' minutos</h2>'
+						$('#video').append(listavideo);
+					});
+				});
+			}
+			else{
+				console.log("pelicula");
+				$(document).ready(function(){
+					$.getJSON('http://localhost:3000/pelicula/'+id, function(data) {
+						var listavideo='';
+						listavideo += '<h2>'+data[0].peliculaName+'</h2>'
+						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].peliculaURL+'" allowfullscreen ></iframe>';
+						listavideo += '<h2>'+data[0].peliculaDescripcion+'</h2>'
+						$('#video').append(listavideo);
+					});
+				});
+			}
+			
+			
+		}
+		else{
+			window.location="index.html";
+		}
+	});
+</script>
