@@ -6,7 +6,8 @@ const app = express();
 const mysql = require('mysql');
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = '34.68.232.91';
+var ip = process.env.IP || 'localhost';
+var h = process.env.HOST ||'localhost';
 
 app.use(body_parser);
 
@@ -19,7 +20,7 @@ app.use(cors());
 const mc = mysql.createConnection({
     host: ip,
     user: 'root',
-    password: 'root',
+    password: '1234',
     database: 'DB_PazHUB'
 });
 mc.connect(function(error) {
