@@ -1,0 +1,88 @@
+/* Navbar container */
+body {
+	background-color: black;
+	color: white;
+	font-family: "Helvetica";
+}
+
+.navbar h2{
+	padding: 4px 25px;
+}
+
+.navbar h2.title{
+	
+	color:white;
+}
+
+.navbar h2.title b.HUB{
+	
+	color: black;
+	background-color: orange;
+	border: 5px solid orange;
+	border-left-width: thin;
+	border-right-width: thin;
+	border-radius: 5px;
+}
+
+.navbar h2.title b.PAZ{
+	
+	color: white;
+	font-family: "Helvetica";
+	font-size: 30px;
+}
+
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
+}
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navbar a.active {
+  background-color: #0F0F0F;
+  border-bottom: 5px white;
+  border-bottom-style: solid;
+  border-bottom-color: orange;
+}
+.navbar a.still {
+  background-color: #0F0F0F;
+  border-bottom: 5px white;
+  border-bottom-style: solid;
+  border-bottom-color: orange;
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: #5F5F5F;
+}
+
+.videos a {
+  float: left;
+  font-size: 16px;
+  color: orange;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: "Helvetica";
+}
+
+.videos a:hover {
+  float: left;
+  font-size: 16px;
+  color: orange;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-family: "Helvetica";
+  text-decoration: underline;
+}
+

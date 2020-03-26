@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <link rel="stylesheet" href="style.css">
+	  <title>PAZHUB</title>
+	   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<h2 class="title">
+				<b class="PAZ">Paz</b>
+				<b class="HUB">hub</b>
+			</h2>
+			<hr/>
+			<a href="index.html"">Home</a>
+			<a href="pelicula.html" class="active">Peliculas</a>
+			<a href="serie.html">Series</a>
+		</div>
+		
+		</div>
+			<h2>Peliculas mas calientes</h2>
+		</div>
+		<div class="videos" id="video">
+		</div>
+		 
+	</body>
+</html>
+
+<script>
+	$(document).ready(function(){
+		$.getJSON('http://localhost:3000/viewPeliculas', function(data) {
+			var listavideo='';
+			$.each(data,function(key,value){
+				listavideo += '<a href="index.html">';
+				listavideo += '<img src="'+value.peliculaImagen+'" width="200" height="250">';
+				listavideo += '<figcaption>'+value.peliculaName+'</figcaption>';
+				listavideo += '</a>';
+			});
+			$('#video').append(listavideo);
+		});
+	});
+</script>

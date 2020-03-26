@@ -1,7 +1,9 @@
 'use strict';
 const express = require('express');
+
 // App
 const app = express();
+var cors = require('cors');
 var body_parser = require('body-parser').json();
 var ip = process.env.IP || 'localhost';
 var h = process.env.HOST ||'localhost';
@@ -10,6 +12,7 @@ var h = process.env.HOST ||'localhost';
 const PORT = 3000;
 const HOST = h;
 
+app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }))
 
 const mysql = require('mysql');
 // connection configurations
