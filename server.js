@@ -115,6 +115,21 @@ app.get('/viewVideo',body_parser,  (req, res)=>{
 });
 
 app.post('/registrarPelicula',body_parser,function(req,res){ 
+    var name = req.body.name;
+    var descripcion = req.body.descripcion;
+    var urlimagen = req.body.urlimagen;
+    var urlpelicula = req.body.urlpelicula;
+
+    var query = "insert into Pelicula(peliculaName, peliculaDescripcion,peliculaImagen,peliculaURL) "
+                "values('"+name+"','"+descripcion+"','"+urlimagen+"','"+urlpelicula+"');"
+
+
+    mc.query(query, function (err, result, fields) {
+        if (err) {res.send("FAIL!!!!")}
+        else{
+            res.send("SUCCESS")	
+        }
+        });
 
 });
 
