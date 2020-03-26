@@ -16,7 +16,6 @@
 			<a href="index.html"">Home</a>
 			<a href="pelicula.html">Peliculas</a>
 			<a href="serie.html" class="active">Series</a>
-			<a href="addmovie.html">Registrar Pelicula</a>
 		</div>
 		
 		</div>
@@ -38,7 +37,7 @@
 			if(type.localeCompare("e") == 0){
 				console.log("episodio");
 				$(document).ready(function(){
-					$.getJSON('http://34.66.170.250:8080/episodio/'+id, function(data) {
+					$.getJSON('http://35.223.89.199:80/episodio/'+id, function(data) {
 						var listavideo='';
 						listavideo += '<h2>'+data[0].episodioName+'</h2>'
 						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].episodioURL+'" allowfullscreen ></iframe>';
@@ -50,7 +49,7 @@
 			else{
 				console.log("pelicula");
 				$(document).ready(function(){
-					$.getJSON('http://localhost:3000/pelicula/'+id, function(data) {
+					$.getJSON('http://35.223.89.199:80/pelicula/'+id, function(data) {
 						var listavideo='';
 						listavideo += '<h2>'+data[0].peliculaName+'</h2>'
 						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].peliculaURL+'" allowfullscreen ></iframe>';
