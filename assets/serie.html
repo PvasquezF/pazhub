@@ -32,7 +32,7 @@
 			var listavideo='';
 			$.each(data,function(key,value){
 				listavideo += '<a href="episodios.html?serie='+value.serieId+'">';
-				listavideo += '<img src="'+value.serieImagen+'" width="200" height="250">';
+				listavideo += '<iframe src="'+value.serieImagen+'" width="200" height="250"></iframe>';
 				listavideo += '<figcaption>'+value.serieName+'</figcaption>';
 				listavideo += '</a>';
 			});

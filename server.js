@@ -114,6 +114,10 @@ app.get('/viewVideo',body_parser,  (req, res)=>{
     res.send(response);
 });
 
+app.post('/registrarPelicula',body_parser,function(req,res){ 
+
+});
+
 
 app.listen(PORT,HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
