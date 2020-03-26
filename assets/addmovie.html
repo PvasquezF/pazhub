@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+	  <link rel="stylesheet" href="style.css">
+	  <title>PAZHUB</title>
+	   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<body>
+		<div class="navbar">
+			<h2 class="title">
+				<b class="PAZ">Paz</b>
+				<b class="HUB">hub</b>
+			</h2>
+			<hr/>
+			<a href="index.html"">Home</a>
+			<a href="pelicula.html">Peliculas</a>
+			<a href="serie.html">Series</a>
+			<a href="addmovie.html" class="active">Registrar Pelicula</a>
+		</div>
+		
+		<h1>Agregar Pelicula</h1>
+    
+    <form id="form-registro" action="index.html" method="post">
+        <div class="form-box error" data-errormsg="">
+            <label for="name">Nombre</label>
+            <input type="text" id="name" name="name" autofocus tabindex="1"/>
+        </div>
+		<div class="form-box error" data-errormsg="">
+            <label for="descripcion">Descripcion</label>
+            <input type="text" id="descripcion" name="descripcion" autofocus tabindex="1"/>
+        </div>
+		<div class="form-box error" data-errormsg="">
+            <label for="urlimagen">Imagen</label>
+            <input type="text" id="urlimagen" name="urlimagen" autofocus tabindex="1"/>
+        </div>
+		<div class="form-box error" data-errormsg="">
+            <label for="urlpelicula">Pelicula</label>
+            <input type="text" id="urlpelicula" name="urlpelicula" autofocus tabindex="1"/>
+        </div>
+        <div class="form-box2">
+            <input type="reset" value="Resetear" />
+            <input type="button" id="enviar" class="enviar_Action" value="Agregar Pelicula"/>
+        </div>		
+    </form>
+		 
+	</body>
+</html>
+
+<script>
+	var btnClassClick = function(e){
+		$.ajax({
+			type: 'POST',
+			url: 'http://localhost:3000/registrarPelicula',
+			data: JSON.stringify({name: $('#name').val(), descripcion: $('#descripcion').val(), urlimagen: $('#urlimagen').val(),urlpelicula: $('#urlpelicula').val()}), 			
+			contentType: "application/json",
+			dataType: 'json',
+			success: function(data) { window.location="index.html"; },
+		});
+			
+			
+	}
+
+	$('.enviar_Action').on('click', btnClassClick);
+</script>
