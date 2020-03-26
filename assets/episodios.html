@@ -29,27 +29,30 @@
 <script>
 	$(document).ready(function(){
 		let searchParams = new URLSearchParams(window.location.search);
+		
 		if(searchParams.has('serie')){
 			let param = searchParams.get('serie');
-			console.log(param);
 			
 			$.ajax({
 					type: 'GET',
-					url: 'http://localhost:3000/viewEpisodios',
-					data: JSON.stringify({serieId: param}), 
+					url: 'http://localhost:3000/viewEpisodios',					
 					contentType: "application/json",
 					dataType: 'json',
+					data: {serieId: parseInt(param)}, 
 					success: function (data) {
+						console.log(data);
 						var listavideo='';
 						$.each(data,function(key,value){
-							listavideo += '<a href="episodios.html?serie='+value.episodioId+'">';
+							listavideo += '<a href="video.html?type=e&id='+value.episodioId+'">';
 							listavideo += '<img src="'+value.episodioImagen+'" width="200" height="250">';
 							listavideo += '<figcaption>'+value.episodioName+'</figcaption>';
 							listavideo += '</a>';
 						});
+
 						$('#video').append(listavideo);
 					}
 			});
+			
 		}
 		else{
 			window.location="serie.html";

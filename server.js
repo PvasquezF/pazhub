@@ -12,7 +12,9 @@ var h = process.env.HOST ||'localhost';
 const PORT = 3000;
 const HOST = h;
 
-app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }))
+app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }));
+
+
 
 const mysql = require('mysql');
 // connection configurations
@@ -43,6 +45,24 @@ app.get('/viewSeries',(req, res)=> {
         });
 });
 
+app.get('/pelicula/:peliculaId', (req, res) => {
+    mc.query("Select * from pelicula where peliculaId = "+ req.params.peliculaId +";", function (err, result, fields) {
+        if (err) {throw err;}
+        else{
+            res.json(result);	
+        }
+     });
+});
+
+app.get('/episodio/:episodioId', (req, res) => {
+    mc.query("Select * from catalogo_episodio where episodioId = "+ req.params.episodioId +";", function (err, result, fields) {
+        if (err) {throw err;}
+        else{
+            res.json(result);	
+        }
+     });
+});
+
 app.get('/viewPeliculas',(req, res)=> {
     mc.query("Select * from pelicula;", function (err, result, fields) {
         if (err) {throw err;}
@@ -53,13 +73,28 @@ app.get('/viewPeliculas',(req, res)=> {
 });
 
 app.get('/viewEpisodios',body_parser,  (req, res)=>{
-    var serieId = req.body.serieId || 1;
-    mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
-        if (err) {throw err;}
-        else{
-            res.json(result);	
-        }
+	var vacio = {};
+	if(Object.entries(vacio).toString()=== Object.entries(req.query).toString()){
+		//console.log("Es Body");
+		var serieId = req.body.serieId || 1;
+		mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
+			if (err) {throw err;}
+			else{
+				res.json(result);	
+			}
         });
+	}
+	else{
+		//console.log("Es Query");
+		var serieId = req.query.serieId;
+		mc.query("select * from catalogo_episodio where serieId = "+ serieId +";", function (err, result, fields) {
+			if (err) {throw err;}
+			else{
+				res.json(result);	
+			}
+        });
+	}
+    
 });
 
 

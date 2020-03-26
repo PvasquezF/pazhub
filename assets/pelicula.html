@@ -31,7 +31,7 @@
 		$.getJSON('http://localhost:3000/viewPeliculas', function(data) {
 			var listavideo='';
 			$.each(data,function(key,value){
-				listavideo += '<a href="index.html">';
+				listavideo += '<a href="video.html?type=p&id='+value.peliculaId+'">';
 				listavideo += '<img src="'+value.peliculaImagen+'" width="200" height="250">';
 				listavideo += '<figcaption>'+value.peliculaName+'</figcaption>';
 				listavideo += '</a>';
