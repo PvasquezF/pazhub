@@ -13,13 +13,12 @@
 				<b class="HUB">hub</b>
 			</h2>
 			<hr/>
-			<a href="index.html"">Home</a>
+			<a href="http://pazhub.tk/">Home</a>
 			<a href="pelicula.html">Peliculas</a>
-			<a href="serie.html" class="active">Series</a>
-		</div>
-		
-		</div>
-			<h2>Video Caliente</h2>
+			<a href="serie.html">Series</a>
+			<a href="addmovie.html">Registrar Pelicula</a>
+			<a href="video.html" class="active">Video</a>
+			
 		</div>
 		<div class="videos" id="video">
 		</div>
@@ -37,7 +36,7 @@
 			if(type.localeCompare("e") == 0){
 				console.log("episodio");
 				$(document).ready(function(){
-					$.getJSON('http://35.223.89.199:80/episodio/'+id, function(data) {
+					$.getJSON('http://apianalisis2.tk/episodio/'+id, function(data) {
 						var listavideo='';
 						listavideo += '<h2>'+data[0].episodioName+'</h2>'
 						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].episodioURL+'" allowfullscreen ></iframe>';
@@ -49,7 +48,7 @@
 			else{
 				console.log("pelicula");
 				$(document).ready(function(){
-					$.getJSON('http://35.223.89.199:80/pelicula/'+id, function(data) {
+					$.getJSON('http://apianalisis2.tk/pelicula/'+id, function(data) {
 						var listavideo='';
 						listavideo += '<h2>'+data[0].peliculaName+'</h2>'
 						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].peliculaURL+'" allowfullscreen ></iframe>';
