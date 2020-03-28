@@ -12,9 +12,10 @@
 				<b class="HUB">hub</b>
 			</h2>
 			<hr/>
-			<a href="index.html"">Home</a>
+			<a href="http://pazhub.tk/">Home</a>
 			<a href="pelicula.html">Peliculas</a>
 			<a href="serie.html" class="active">Series</a>
+			<a href="addmovie.html">Registrar Pelicula</a>
 		</div>
 		
 		<div class="videos" id="video">
@@ -25,7 +26,7 @@
 
 <script>
 	$(document).ready(function(){
-		$.getJSON('http://35.223.89.199:80/viewSeries', function(data) {
+		$.getJSON('http://apianalisis2.tk/viewSeries', function(data) {
 			var listavideo='';
 			$.each(data,function(key,value){
 				listavideo += '<a href="episodios.html?serie='+value.serieId+'">';
