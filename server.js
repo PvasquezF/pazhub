@@ -6,7 +6,7 @@ const app = express();
 var cors = require('cors');
 var body_parser = require('body-parser').json();
 var ip = process.env.IP || '35.194.48.100';
-var h = process.env.HOST || '0.0.0.0';
+var h = process.env.HOST || 'localhost';
 
 // Constants
 const PORT = 3000;
