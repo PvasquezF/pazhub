@@ -5,11 +5,11 @@ const express = require('express');
 const app = express();
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = process.env.IP || '34.68.232.91';
+var ip = process.env.IP || '35.194.48.100';
 var h = process.env.HOST || '0.0.0.0';
 
 // Constants
-const PORT = 80;
+const PORT = 3000;
 const HOST = h;
 
 app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }));
@@ -64,6 +64,26 @@ app.get('/viewPeliculas', (req, res) => {
     mc.query("Select * from Pelicula;", function(err, result, fields) {
         if (err) { throw err; } else {
             res.json(result);
+        }
+    });
+});
+
+app.get('/viewCatalogoPeliculas', (req, res) => {
+    var numero = req.body.pagina|1;
+    var query = "CALL getAllFilm2("+ numero+")"
+    mc.query(query, function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/viewCatalogoSeries', (req, res) => {
+    var numero = req.body.pagina|1;
+    var query = "CALL getAllSerie2("+ numero+")"
+    mc.query(query, function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
         }
     });
 });

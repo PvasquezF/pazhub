@@ -36,7 +36,7 @@
 			if(type.localeCompare("e") == 0){
 				console.log("episodio");
 				$(document).ready(function(){
-					$.getJSON('http://apianalisis2.tk/episodio/'+id, function(data) {
+					$.getJSON('http://localhost:3000/episodio/'+id, function(data) {
 						var listavideo='';
 						listavideo += '<h2>'+data[0].episodioName+'</h2>'
 						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].episodioURL+'" allowfullscreen ></iframe>';
@@ -48,7 +48,7 @@
 			else{
 				console.log("pelicula");
 				$(document).ready(function(){
-					$.getJSON('http://apianalisis2.tk/pelicula/'+id, function(data) {
+					$.getJSON('http://localhost:3000/pelicula/'+id, function(data) {
 						var listavideo='';
 						listavideo += '<h2>'+data[0].peliculaName+'</h2>'
 						listavideo += '<iframe width="640" height="360" frameborder="0" src="'+data[0].peliculaURL+'" allowfullscreen ></iframe>';
