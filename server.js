@@ -68,8 +68,8 @@ app.get('/viewPeliculas', (req, res) => {
     });
 });
 
-app.get('/viewCatalogoPeliculas', (req, res) => {
-    var numero = req.body.pagina|1;
+app.get('/viewCatalogoPeliculas/:pagina', (req, res) => {
+    var numero = req.params.pagina|1;
     var query = "CALL getAllFilm2("+ numero+")"
     mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
@@ -78,8 +78,8 @@ app.get('/viewCatalogoPeliculas', (req, res) => {
     });
 });
 
-app.get('/viewCatalogoSeries', (req, res) => {
-    var numero = req.body.pagina|1;
+app.get('/viewCatalogoSeries/:pagina', (req, res) => {
+    var numero = req.params.pagina|1;
     var query = "CALL getAllSerie2("+ numero+")"
     mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
