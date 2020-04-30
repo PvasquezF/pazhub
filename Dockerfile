@@ -11,5 +11,5 @@ RUN npm i cors
 
 COPY . .
 
-CMD ["nopm","start"]
+CMD ["npm","start"]
 

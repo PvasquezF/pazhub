@@ -5,7 +5,7 @@ const express = require('express');
 const app = express();
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = process.env.IP || '34.194.48.100';
+var ip = process.env.IP || '35.194.48.100';
 var h = process.env.HOST || '0.0.0.0';
 
 // Constants
@@ -39,7 +39,7 @@ app.get('/', function(req, res) {
 app.get('/viewSeries', (req, res) => {
     mc.query("CALL getAllSerie()", function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
@@ -48,7 +48,7 @@ app.get('/pelicula/:peliculaId', (req, res) => {
 	var query = "CALL getFilm("+req.params.peliculaId + ")"
     mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
@@ -57,7 +57,7 @@ app.get('/episodio/:episodioId', (req, res) => {
 	var query = "CALL getCap("+req.params.episodioId + ")"
     mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
@@ -65,7 +65,7 @@ app.get('/episodio/:episodioId', (req, res) => {
 app.get('/viewPeliculas', (req, res) => {
     mc.query("CALL getAllFilm()", function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
@@ -78,7 +78,7 @@ app.get('/viewEpisodios', body_parser, (req, res) => {
         var query = "CALL getAllCap("+serieId+")"
         mc.query(query, function(err, result, fields) {
             if (err) { throw err; } else {
-                res.json(result);
+                res.json(result[0]);
             }
         });
     } else {
@@ -87,7 +87,7 @@ app.get('/viewEpisodios', body_parser, (req, res) => {
 		var query = "CALL getAllCap("+serieId+")"
         mc.query(query, function(err, result, fields) {
             if (err) { throw err; } else {
-                res.json(result);
+                res.json(result[0]);
             }
         });
     }
