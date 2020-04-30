@@ -5,11 +5,11 @@ const express = require('express');
 const app = express();
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = process.env.IP || '34.68.232.91';
+var ip = process.env.IP || '34.194.48.100';
 var h = process.env.HOST || '0.0.0.0';
 
 // Constants
-const PORT = 80;
+const PORT = 3000;
 const HOST = h;
 
 app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }));
@@ -37,7 +37,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/viewSeries', (req, res) => {
-    mc.query("Select * from Serie;", function(err, result, fields) {
+    mc.query("CALL getAllSerie()", function(err, result, fields) {
         if (err) { throw err; } else {
             res.json(result);
         }
@@ -45,7 +45,8 @@ app.get('/viewSeries', (req, res) => {
 });
 
 app.get('/pelicula/:peliculaId', (req, res) => {
-    mc.query("Select * from Pelicula where peliculaId = " + req.params.peliculaId + ";", function(err, result, fields) {
+	var query = "CALL getFilm("+req.params.peliculaId + ")"
+    mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
             res.json(result);
         }
@@ -53,7 +54,8 @@ app.get('/pelicula/:peliculaId', (req, res) => {
 });
 
 app.get('/episodio/:episodioId', (req, res) => {
-    mc.query("Select * from Catalogo_Episodio where episodioId = " + req.params.episodioId + ";", function(err, result, fields) {
+	var query = "CALL getCap("+req.params.episodioId + ")"
+    mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
             res.json(result);
         }
@@ -61,7 +63,7 @@ app.get('/episodio/:episodioId', (req, res) => {
 });
 
 app.get('/viewPeliculas', (req, res) => {
-    mc.query("Select * from Pelicula;", function(err, result, fields) {
+    mc.query("CALL getAllFilm()", function(err, result, fields) {
         if (err) { throw err; } else {
             res.json(result);
         }
@@ -73,7 +75,8 @@ app.get('/viewEpisodios', body_parser, (req, res) => {
     if (Object.entries(vacio).toString() === Object.entries(req.query).toString()) {
         //console.log("Es Body");
         var serieId = req.body.serieId || 1;
-        mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = " + serieId + ";", function(err, result, fields) {
+        var query = "CALL getAllCap("+serieId+")"
+        mc.query(query, function(err, result, fields) {
             if (err) { throw err; } else {
                 res.json(result);
             }
@@ -81,7 +84,8 @@ app.get('/viewEpisodios', body_parser, (req, res) => {
     } else {
         //console.log("Es Query");
         var serieId = req.query.serieId;
-        mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = " + serieId + ";", function(err, result, fields) {
+		var query = "CALL getAllCap("+serieId+")"
+        mc.query(query, function(err, result, fields) {
             if (err) { throw err; } else {
                 res.json(result);
             }
@@ -113,7 +117,7 @@ app.post('/registrarPelicula', body_parser, function(req, res) {
     var urlimagen = req.body.urlimagen;
     var urlpelicula = req.body.urlpelicula;
 
-    var query = "insert into Pelicula(peliculaName, peliculaDescripcion,peliculaImagen,peliculaURL) values('" + name + "','" + descripcion + "','" + urlimagen + "','" + urlpelicula + "');"
+    var query = "CALL insertFilm('" + name + "','" + descripcion + "','" + urlimagen + "','" + urlpelicula + "')"
 
 
     mc.query(query, function(err, result, fields) {
