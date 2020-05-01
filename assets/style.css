@@ -86,6 +86,45 @@ body {
   text-decoration: underline;
 }
 
+
+.paginas{
+	width: 100%;
+	botton: 0px;
+}
+
+.paginas a {
+  margin: 10px auto;
+  width: 15px;
+  height: 15px;
+  background-color: orange;
+  float: left;
+  padding: 10px;
+  border: 2px solid black;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Helvetica";
+  text-decoration: none;
+  color:black;
+  position: relative;
+  bottom: 0px;
+}
+
+.paginas a:hover {
+  margin: 10px auto;
+  width: 15px;
+  height: 15px;
+  background-color: #070707;
+  float: left;
+  padding: 10px;
+  border: 2px solid black;
+  position: relative;
+  text-align: center;
+  font-size: 16px;
+  font-family: "Helvetica";
+  text-decoration: underline;
+  color: orange;
+}
+
 .form-box{
     padding: 1rem;
     clear: both;

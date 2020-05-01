@@ -68,6 +68,22 @@ app.get('/viewPeliculas', (req, res) => {
     });
 });
 
+app.get('/getPeliculaPaginas', (req, res) => {
+    mc.query("Select Count(peliculaId)/10 AS paginas from Pelicula;", function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result);
+        }
+    });
+});
+
+app.get('/getSeriePaginas', (req, res) => {
+    mc.query("Select Count(SerieId)/10 AS paginas from Serie;", function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result);
+        }
+    });
+});
+
 app.get('/viewCatalogoPeliculas/:pagina', (req, res) => {
     var numero = req.params.pagina|1;
     var query = "CALL getAllFilm2("+ numero+")"
