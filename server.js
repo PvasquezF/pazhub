@@ -69,17 +69,17 @@ app.get('/viewPeliculas', (req, res) => {
 });
 
 app.get('/getPeliculaPaginas', (req, res) => {
-    mc.query("Select Count(peliculaId)/10 AS paginas from Pelicula;", function(err, result, fields) {
+    mc.query("CALL getCountFilm()", function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
 
 app.get('/getSeriePaginas', (req, res) => {
-    mc.query("Select Count(SerieId)/10 AS paginas from Serie;", function(err, result, fields) {
+    mc.query("CALL getCountSerie()", function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
