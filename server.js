@@ -5,11 +5,11 @@ const express = require('express');
 const app = express();
 var cors = require('cors');
 var body_parser = require('body-parser').json();
-var ip = process.env.IP || '34.68.232.91';
+var ip = process.env.IP || '35.194.48.100';
 var h = process.env.HOST || '0.0.0.0';
 
 // Constants
-const PORT = 80;
+const PORT = 3000;
 const HOST = h;
 
 app.use(cors({ allowedHeaders: 'Content-Type, Cache-Control' }));
@@ -37,53 +37,95 @@ app.get('/', function(req, res) {
 });
 
 app.get('/viewSeries', (req, res) => {
-    mc.query("Select * from Serie;", function(err, result, fields) {
+    mc.query("CALL getAllSerie()", function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
 
 app.get('/pelicula/:peliculaId', (req, res) => {
-    mc.query("Select * from Pelicula where peliculaId = " + req.params.peliculaId + ";", function(err, result, fields) {
+	var query = "CALL getFilm("+req.params.peliculaId + ")"
+    mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
 
 app.get('/episodio/:episodioId', (req, res) => {
-    mc.query("Select * from Catalogo_Episodio where episodioId = " + req.params.episodioId + ";", function(err, result, fields) {
+	var query = "CALL getCap("+req.params.episodioId + ")"
+    mc.query(query, function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
 
 app.get('/viewPeliculas', (req, res) => {
-    mc.query("Select * from Pelicula;", function(err, result, fields) {
+    mc.query("CALL getAllFilm()", function(err, result, fields) {
         if (err) { throw err; } else {
-            res.json(result);
+            res.json(result[0]);
         }
     });
 });
+
+
+app.get('/getPeliculaPaginas', (req, res) => {
+    mc.query("CALL getCountFilm()", function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/getSeriePaginas', (req, res) => {
+    mc.query("CALL getCountSerie()", function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/viewCatalogoPeliculas/:pagina', (req, res) => {
+    var numero = req.params.pagina|1;
+    var query = "CALL getAllFilm2("+ numero+")"
+    mc.query(query, function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/viewCatalogoSeries/:pagina', (req, res) => {
+    var numero = req.params.pagina|1;
+    var query = "CALL getAllSerie2("+ numero+")"
+    mc.query(query, function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
 
 app.get('/viewEpisodios', body_parser, (req, res) => {
     var vacio = {};
     if (Object.entries(vacio).toString() === Object.entries(req.query).toString()) {
         //console.log("Es Body");
         var serieId = req.body.serieId || 1;
-        mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = " + serieId + ";", function(err, result, fields) {
+        var query = "CALL getAllCap("+serieId+")"
+        mc.query(query, function(err, result, fields) {
             if (err) { throw err; } else {
-                res.json(result);
+                res.json(result[0]);
             }
         });
     } else {
         //console.log("Es Query");
         var serieId = req.query.serieId;
-        mc.query("select CA.episodioId, CA.episodioName, SE.serieImagen as episodioImagen from Catalogo_Episodio as CA Inner join Serie as SE on CA.serieId = SE.serieId  where CA.serieId = " + serieId + ";", function(err, result, fields) {
+		var query = "CALL getAllCap("+serieId+")"
+        mc.query(query, function(err, result, fields) {
             if (err) { throw err; } else {
-                res.json(result);
+                res.json(result[0]);
             }
         });
     }
@@ -113,7 +155,7 @@ app.post('/registrarPelicula', body_parser, function(req, res) {
     var urlimagen = req.body.urlimagen;
     var urlpelicula = req.body.urlpelicula;
 
-    var query = "insert into Pelicula(peliculaName, peliculaDescripcion,peliculaImagen,peliculaURL) values('" + name + "','" + descripcion + "','" + urlimagen + "','" + urlpelicula + "');"
+    var query = "CALL insertFilm('" + name + "','" + descripcion + "','" + urlimagen + "','" + urlpelicula + "')"
 
 
     mc.query(query, function(err, result, fields) {
