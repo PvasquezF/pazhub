@@ -34,7 +34,7 @@
 		$.getJSON('http://localhost:3000/getPeliculaPaginas', function(data) {
 			$.each(data,function(key,value){			
 				paginas = parseInt(value.paginas)
-				paginas=paginas+1;
+				paginas=paginas;
 				console.log(paginas)
 			});
 			var i=1;
