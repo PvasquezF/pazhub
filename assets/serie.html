@@ -20,13 +20,34 @@
 		
 		<div class="videos" id="video">
 		</div>
+		
+		<div class="paginas" id="pagina">
+		 </div>
 		 
 	</body>
 </html>
 
 <script>
 	$(document).ready(function(){
-		$.getJSON('http://apianalisis2.tk/viewSeries', function(data) {
+	var paginas = 0;
+		
+	$.getJSON('http://35.194.48.100:3000/getSeriePaginas', function(data) {
+		$.each(data,function(key,value){			
+			paginas = parseInt(value.paginas)
+			paginas=paginas;
+			console.log(paginas)
+		});
+		var i=1;
+		for(i=1;i<=paginas;i++){
+			$('#pagina').append('<a href="serie.html?pagina='+i+'">'+i+'</a>');
+		}
+	});		
+	let searchParams = new URLSearchParams(window.location.search);
+	let paginaactual = searchParams.get('pagina');
+	if(paginaactual == null){
+		paginaactual=1;
+	}
+		$.getJSON('http://35.194.48.100:3000/viewCatalogoSeries/'+paginaactual, function(data) {
 			var listavideo='';
 			$.each(data,function(key,value){
 				listavideo += '<a href="episodios.html?serie='+value.serieId+'">';
