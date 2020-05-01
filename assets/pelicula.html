@@ -20,13 +20,36 @@
 		
 		<div class="videos" id="video">
 		</div>
-		 
+
+		 <div class="paginas" id="pagina">
+		 </div>
 	</body>
 </html>
 
 <script>
 	$(document).ready(function(){
-		$.getJSON('http://35.194.48.100:3000/viewPeliculas', function(data) {
+		
+		var paginas = 0;
+		
+		$.getJSON('http://35.194.48.100:3000/getPeliculaPaginas', function(data) {
+			$.each(data,function(key,value){			
+				paginas = parseInt(value.paginas)
+				paginas=paginas;
+				console.log(paginas)
+			});
+			var i=1;
+			for(i=1;i<=paginas;i++){
+				$('#pagina').append('<a href="pelicula.html?pagina='+i+'">'+i+'</a>');
+			}
+		});		
+		let searchParams = new URLSearchParams(window.location.search);
+		let paginaactual = searchParams.get('pagina');
+		if(paginaactual == null){
+			paginaactual=1;
+		}
+		
+		console.log(paginaactual);
+		$.getJSON('http://35.194.48.100:3000/viewCatalogoPeliculas/'+paginaactual, function(data) {
 			var listavideo='';
 			$.each(data,function(key,value){
 				listavideo += '<a href="video.html?type=p&id='+value.peliculaId+'">';

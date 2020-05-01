@@ -70,6 +70,44 @@ app.get('/viewPeliculas', (req, res) => {
     });
 });
 
+
+app.get('/getPeliculaPaginas', (req, res) => {
+    mc.query("CALL getCountFilm()", function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/getSeriePaginas', (req, res) => {
+    mc.query("CALL getCountSerie()", function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/viewCatalogoPeliculas/:pagina', (req, res) => {
+    var numero = req.params.pagina|1;
+    var query = "CALL getAllFilm2("+ numero+")"
+    mc.query(query, function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+app.get('/viewCatalogoSeries/:pagina', (req, res) => {
+    var numero = req.params.pagina|1;
+    var query = "CALL getAllSerie2("+ numero+")"
+    mc.query(query, function(err, result, fields) {
+        if (err) { throw err; } else {
+            res.json(result[0]);
+        }
+    });
+});
+
+
 app.get('/viewEpisodios', body_parser, (req, res) => {
     var vacio = {};
     if (Object.entries(vacio).toString() === Object.entries(req.query).toString()) {
